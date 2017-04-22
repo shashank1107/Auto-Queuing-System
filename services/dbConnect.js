@@ -14,7 +14,7 @@ var mySQLPromise = require("promise-mysql");
 var conVars = {
    host: process.env.DB_HOST,
    user: process.env.DB_USER,
-   password: process.env.DB_PASSWORD,
+   password: '',
    database: process.env.DB_NAME
  };
 
@@ -30,13 +30,13 @@ exports.dbConnect = function(query_string){
         return cnn.query(query_string);
     })
     .then(function(result){
-        cnn.done();
+        // cnn.done();
 				resolve(result);
     })
 		.catch(function(error){
 			console.log('error getting ', error);
 			if(cnn){
-				cnn.done();
+				// cnn.done();
 			}
 			reject(error);
 		});

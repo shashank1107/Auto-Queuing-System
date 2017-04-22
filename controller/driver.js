@@ -83,11 +83,11 @@ controller.getList = function (req, res, next) {
   var response;
   var driverid = req.body.driverid;
   var date = new Date();
-  var query_string = "UPDATE driver set driver_flag = (SELECT if(COUNT(*)>0,0,1) as request_status FROM dashboard WHERE driver_id = "+ driverid +" and request_status=1) Where driver_id="+driverid;
+  var query_string = "UPDATE dashboard set request_status=2 where request_status=1 and (" + date + " - start_time) > 300  and driver_id =" + driverid;
   dbConnection.dbConnect(query_string)
   .then(function(result){
     var date = new Date();
-    var query_string1 = "UPDATE dashboard set request_status=2 where request_status=1 and (" + date + " - start_time) > 300  and driver_id =" + driverid;
+    var query_string1 = "UPDATE driver set driver_flag = (SELECT if(COUNT(*)>0,0,1) as request_status FROM dashboard WHERE driver_id = "+ driverid +" and request_status=1) Where driver_id="+driverid;
     dbConnection.dbConnect(query_string1)
       .then(function(result1){
           var query_string2 = "SELECT * FROM dashboard INNER JOIN request ON dashboard.request_id = request.request_id WHERE dashboard.driver_id=" + driverid;
