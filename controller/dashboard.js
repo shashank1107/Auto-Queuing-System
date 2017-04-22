@@ -1,5 +1,6 @@
 
 var dbConnection = require('../services/dbConnect');
+var store = require('../services/dbStore').sqlStore;
 
 /**
  *  Get ride function
@@ -11,20 +12,19 @@ var dbConnection = require('../services/dbConnect');
 var controller = {};
 controller.allRequests = function (req, res, next) {
 
-  // var customer_id = req.body.customerid;
-  // var date = new Date();
-  // var query_string = "INSERT INTO `request` (`request_id`, `customer_id`, `requset_time`) VALUES(NULL, '" + customer_id + "', '"+ date +"')";
+  var query_string = "SELECT * FROM dashboard INNER JOIN request ON dashboard.request_id = request.request_id LIMIT 10";
   dbConnection.dbConnect(query_string)
   .then(function(result){
-    return res.status(200).json({
-         "result" : result
-    });
+      var response = store.getResponse(200);
+      response.data = result;
+      return res.status(200).json(response);
   })
   .catch(function(error){
-    console.log('error getting ', error);
-    return res.status(404).json({
-          "error": error
-      });
+      console.log('error getting ', error);
+      console.log('error getting ', error);
+      var response = store.getResponse(500);
+      response.error = error.response.body;
+      return res.status(500).send(response);
   });
 };
 
