@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 -- Database: `ola`
 --
 
+DROP DATABASE ola
+CREATE DATABASE ola
+
 -- --------------------------------------------------------
 
 --
