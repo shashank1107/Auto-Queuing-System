@@ -39,7 +39,6 @@ controller.selectride = function (req, res, next) {
   });
 };
 
-var controller = {};
 controller.getList = function (req, res, next) {
 
   var response;
