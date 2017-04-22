@@ -110,7 +110,7 @@ store.prototype.getResponse = function(status) {
 function sqlStore() {
 }
 sqlStore.prototype = new store();
-sqlStore.prototype.constructor = mongoStore;
+sqlStore.prototype.constructor = sqlStore;
 
 
 module.exports = {
