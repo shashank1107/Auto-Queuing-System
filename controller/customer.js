@@ -13,14 +13,8 @@ var controller = {};
 
 controller.ride = function (req, res, next) {
 
+  console.log('In ride function !!');
   var response;
-  req.checkBody('customerid', 'Invalid value').notEmpty().isString();
-  var errors = req.validationErrors(true);
-  if (errors) {
-      response = store.getResponse(400);
-      response.error = error.response.body;
-      return res.status(400).send(response);
-  }
 
   var customer_id = req.body.customerid;
   var date = new Date();
