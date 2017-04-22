@@ -1,0 +1,5 @@
+# npm components
+node_modules
+
+# config file
+.env
