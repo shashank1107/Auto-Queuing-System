@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 //var pg = require('pg');
+var Promise = require('es6-promise').Promise;
 var mySQLPromise = require("promise-mysql");
 // var mySQLPromise = new MySQLPromise();
 // var mysql = require("mysql");
