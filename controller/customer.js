@@ -18,7 +18,7 @@ controller.ride = function (req, res, next) {
 
   var customer_id = req.body.customerid;
   var date = new Date();
-  var query_string = "INSERT INTO `request` (`customer_id`, `request_time`) VALUES(" + customerid + ", '"+ date +"')";
+  var query_string = "INSERT INTO `request` (`customer_id`, `request_time`) VALUES(" + customer_id + ", '"+ date +"')";
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
