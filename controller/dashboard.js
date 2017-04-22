@@ -11,6 +11,7 @@ var store = require('../services/dbStore').sqlStore;
 
 var controller = {};
 controller.allRequests = function (req, res, next) {
+  console.log('In allRequests function !!');
 
   var query_string = "SELECT * FROM dashboard INNER JOIN request ON dashboard.request_id = request.request_id LIMIT 10";
   dbConnection.dbConnect(query_string)
@@ -20,7 +21,6 @@ controller.allRequests = function (req, res, next) {
       return res.status(200).json(response);
   })
   .catch(function(error){
-      console.log('error getting ', error);
       console.log('error getting ', error);
       var response = store.getResponse(500);
       response.error = error.response.body;

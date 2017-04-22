@@ -8,13 +8,13 @@ router.use(expressValidator());
 
 /* GET home page. */
 router.post('/', function(req, res){
-      // req.checkBody("customerid", "Invalid value").notEmpty().isString();
-      // var errors = req.validationErrors(true);
-      // if (errors) {
-      //     response = store.getResponse(400);
-      //     response.error = error.response.body;
-      //     return res.status(400).send(response);
-      // }
+      req.checkBody("customerid", "Invalid value").notEmpty().isString();
+      var errors = req.validationErrors(true);
+      if (errors) {
+          response = store.getResponse(400);
+          response.error = error.response.body;
+          return res.status(400).send(response);
+      }
       next()
   },
   controller.ride
