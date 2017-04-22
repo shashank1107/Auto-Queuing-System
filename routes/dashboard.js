@@ -4,7 +4,7 @@ var controller = require('../controller/customer');
 
 /* GET home page. */
 router.post('/',
-    controller.ride
+    controller.allRequests
 );
 
 module.exports = router;
