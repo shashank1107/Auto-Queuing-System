@@ -17,9 +17,9 @@ controller.ride = function (req, res, next) {
   var response;
 
   var customer_id = req.body.customerid;
-  var requestid = Math.random();
+  var requestid = getRandomArbitrary(1, 10000);
   var date = new Date();
-  var query_string = "INSERT INTO `request` (`request_id`, `customer_id`, `request_time`) VALUES(" + requestid + ", " +customer_id + ", '"+ date +"')";
+  var query_string = "INSERT INTO `request` (`request_id`, `customer_id`, `request_time`) VALUES(" + requestid + ", " + customer_id + ", '"+ date +"')";
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
@@ -33,5 +33,9 @@ controller.ride = function (req, res, next) {
       return res.status(500).send(response);
   });
 };
+
+function getRandomArbitrary(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 module.exports = controller;
