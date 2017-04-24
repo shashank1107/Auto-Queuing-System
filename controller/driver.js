@@ -28,7 +28,7 @@ controller.selectride = function (req, res, next) {
 
   var qdriver_flag, qcheck_request;
 
-  qdriver_flag = "Select driver_flag FROM driver WHERE driver_id =" + driverid;
+  qdriver_flag = "Select driver_flag FROM `driver` WHERE driver_id =" + driverid;
   dbConnection.dbConnect(qdriver_flag)
   .then(function(result1){
       if(result1.driver_flag === 1){
@@ -37,7 +37,7 @@ controller.selectride = function (req, res, next) {
           return res.status(403).send(response);
       }
 
-      qcheck_request = "select driver_id from dashboard where request_id=" +  requestid;
+      qcheck_request = "select driver_id from `dashboard` where request_id=" +  requestid;
       dbConnection.dbConnect(qcheck_request)
       .then(function(result2){
           if(result2.driver_id > 0){
@@ -47,12 +47,13 @@ controller.selectride = function (req, res, next) {
           }
           else {
               var current_time = new Date().getTime();
-              var qupdate_ride1 = "UPDATE dashboard set request_status = 1, accepted_time = " + current_time  + " where driver_id=" + driverid ;
-              var qupdate_ride2 = "UPDATE driver set driver_flag = 1 where driver_id= " + driverid;
+              var qupdate_ride1 = "UPDATE `dashboard` set request_status = 1, accepted_time = " + current_time  + " where driver_id=" + driverid ;
+              var qupdate_ride2 = "UPDATE `driver` set driver_flag = 1 where driver_id= " + driverid;
               dbConnection.dbConnect(qupdate_ride1)
               .then(function(result3){
                   dbConnection.dbConnect(qupdate_ride2)
                   .then(function(result4){
+                      console.log('Successfully updated in ride function !!');
                       var response = store.getResponse(200);
                       response.data = result4;
                       return res.status(200).json(response);
@@ -100,7 +101,7 @@ controller.getList = function (req, res, next) {
   }
 
   var driver_id = req.body.driverid;
-  var query_string = "SELECT * from dashboard where driver_id =" + driver_id;
+  var query_string = "SELECT * from `dashboard` where driver_id =" + driver_id;
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
