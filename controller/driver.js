@@ -12,8 +12,17 @@ var store = require('../services/dbStore').sqlStore;
 var controller = {};
 controller.selectride = function (req, res, next) {
   console.log('In selectride function !!');
-
   var response;
+
+  req.checkParams("requestid", "Invalid value").notEmpty();
+  req.checkBody("driverid", "Invalid value").notEmpty();
+  var errors = req.validationErrors(true);
+  if (errors) {
+      response = store.getResponse(400);
+      response.error = errors;
+      return res.status(400).send(response);
+  }
+
   var driverid = req.body.driverid;
   var requestid = req.params.requestid;
 
@@ -79,8 +88,17 @@ controller.selectride = function (req, res, next) {
 };
 
 controller.getList = function (req, res, next) {
-
+  console.log('In getList function !!');
   var response;
+
+  req.checkBody("driverid", "Invalid value").notEmpty();
+  var errors = req.validationErrors(true);
+  if (errors) {
+      response = store.getResponse(400);
+      response.error = errors;
+      return res.status(400).send(response);
+  }
+
   var driverid = req.body.driverid;
   var date = new Date();
   var query_string = "UPDATE dashboard set request_status=2 where request_status=1 and (" + date + " - start_time) > 300  and driver_id =" + driverid;

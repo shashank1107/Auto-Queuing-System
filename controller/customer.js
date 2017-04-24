@@ -14,6 +14,7 @@ var controller = {};
 controller.ride = function (req, res, next) {
   console.log('In ride function !!');
 
+  var response;
   req.checkBody("customerid", "Invalid value").notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {
@@ -22,13 +23,9 @@ controller.ride = function (req, res, next) {
       return res.status(400).send(response);
   }
 
-  var response;
-
   var customer_id = req.body.customerid;
-  // var requestid = getRandomArbitrary(1, 10000);
-  var date = new Date().getTime();
-  // var seconds = date.getSeconds();
-  var query_string = "INSERT INTO `request` (`customer_id`, `request_time`) VALUES(" + customer_id + ", '"+ date +"')";
+  var created_time = new Date().getTime();
+  var query_string = "INSERT INTO `dashboard` (`customer_id`, `created_time`) VALUES(" + customer_id + ", '"+ created_time +"')";
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
@@ -42,9 +39,5 @@ controller.ride = function (req, res, next) {
       return res.status(500).send(response);
   });
 };
-
-function getRandomArbitrary(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
 module.exports = controller;

@@ -13,7 +13,7 @@ var controller = {};
 controller.allRequests = function (req, res, next) {
   console.log('In allRequests function !!');
 
-  var query_string = "SELECT * FROM dashboard INNER JOIN request ON dashboard.request_id = request.request_id LIMIT 10";
+  var query_string = "SELECT * FROM dashboard INNER JOIN dashboard ON dashboard.request_id = request.request_id LIMIT 10";
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
