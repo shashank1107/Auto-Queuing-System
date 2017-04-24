@@ -101,7 +101,7 @@ controller.getList = function (req, res, next) {
   }
 
   var driver_id = req.body.driverid;
-  var query_string = "SELECT * from `dashboard` where driver_id =" + driver_id;
+  var query_string = "SELECT * from `dashboard` where driver_id =" + driver_id + " OR driver_id = 0";
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
