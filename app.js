@@ -29,6 +29,9 @@ app.use(expressValidator(validator));
 app.use('/api/', dashboard);
 app.use('/api/driver', driver);
 app.use('/api/customer', customer);
+app.use('/', dashboard);
+app.use('/driver', driver);
+app.use('/customer', customer);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

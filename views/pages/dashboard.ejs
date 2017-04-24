@@ -1,0 +1,47 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+        <div>
+            <a class="btn btn-primary", href="/"> Refresh </a>
+        </div>
+            <h3>Dashboard</h3>
+            <table style="width:100%">
+              <tr>
+                <th>Request ID</th>
+                <th>Customer ID</th>
+                <th>Time Elapsed</th>
+                <th>Status</th>
+                <th>Driver</th>
+              </tr>
+
+              <% for(var i=0; i < result.length; i++) { %>
+               <tr>
+                 <td><%= result[i].request_id %></td>
+                 <td><%= result[i].customer_id %></td>
+                 <td><%= result[i].elapsed_time %></td>
+                 <td><%= result[i].request_status %></td>
+                 <td><%= result[i].driver_id %></td>
+               </tr>
+            <% } %>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

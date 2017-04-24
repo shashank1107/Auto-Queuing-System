@@ -29,15 +29,24 @@ controller.ride = function (req, res, next) {
   dbConnection.dbConnect(query_string)
   .then(function(result){
       console.log('getting data successfully in ride function ');
-      var response = store.getResponse(200);
-      response.data = result;
-      return res.status(200).json(response);
+      // var response = store.getResponse(200);
+      // response.data = result;
+      // return res.status(200).json(response);
+      return res.redirect('/pages/customerapp', {
+        msg: "Request sent successfully",
+        flag: 1
+      });
   })
   .catch(function(error){
       console.log('error getting ', error);
-      var response = store.getResponse(500);
-      response.error = error.response.body;
-      return res.status(500).send(response);
+      // var response = store.getResponse(500);
+      // response.error = error.response.body;
+      // return res.status(500).send(response);
+      return res.redirect('/pages/customerapp', {
+        msg: "Server Error",
+        error: error,
+        flag: 0
+      });
   });
 };
 

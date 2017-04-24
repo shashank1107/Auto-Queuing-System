@@ -1,0 +1,63 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+
+        <div class="jumbotron">
+        <div>
+            <a class="btn btn-primary", href="/driver?id=<%= driver_id %>"> Refresh </a>
+        </div>
+            <h3>Driver App, driver_id: <%= driver_id %></h3>
+            <table style="width:100%">
+              <tr>
+                <th>Waiting</th>
+                <th>Ongoing</th>
+                <th>Completed</th>
+              </tr>
+              <% for(var i=0; i < result.length; i++) { %>
+               <tr>
+                 <td>
+                    <% if(result[i].request_status == 0){ %>
+                      <div>Request ID: <%= result[i].request_id %></div>
+                      <div>Customer ID: <%= result[i].customer_id %></div>
+                      <form method="post" action="/api/driver/select/<%= result[i].request_id %>">
+                        <input type="hidden" name="driverid" value="<%= result[i].driver_id %>">
+                        <button type="submit" class="btn btn-primary">Select</button>
+                      </form>
+                    <% } %>
+                </td>
+                 <td>
+                   <% if(result[i].request_status == 1){ %>
+                     <div>Request ID: <%= result[i].request_id %></div>
+                     <div>Customer ID: <%= result[i].customer_id %></div>
+                   <% } %>
+                 </td>
+                 <td>
+                   <% if(result[i].request_status == 2){ %>
+                     <div>Request ID: <%= result[i].request_id %></div>
+                     <div>Customer ID: <%= result[i].customer_id %></div>
+                     <p>Completed</p>
+                   <% } %>
+                 </td>
+               </tr>
+            <% } %>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>

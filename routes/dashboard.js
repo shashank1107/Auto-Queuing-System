@@ -1,4 +1,6 @@
 var express = require('express');
+var rp = require('request-promise');
+var request = require('request');
 var router = express.Router();
 var controller = require('../controller/dashboard');
 
@@ -7,5 +9,22 @@ router.post('/',
     controller.refresh,
     controller.allRequests
 );
+
+router.get('/', function(req, res){
+  var options = {
+       uri: '/api/',
+       method: 'POST',
+       qs: {}
+   };
+
+   rp(options)
+    .then(function (response) {
+      console.log(JSON.parse(response));
+      result = JSON.parse(response);
+      res.render('pages/dashboard', {
+        result: result.data
+      });
+    });
+});
 
 module.exports = router;

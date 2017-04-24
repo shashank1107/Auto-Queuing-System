@@ -7,4 +7,10 @@ router.post('/',
   controller.ride
 );
 
+router.get('/', function(req, res){
+  res.render('pages/customerapp', {
+    flag: 2
+  });
+});
+
 module.exports = router;
