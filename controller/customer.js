@@ -12,14 +12,23 @@ var store = require('../services/dbStore').sqlStore;
 var controller = {};
 
 controller.ride = function (req, res, next) {
-
   console.log('In ride function !!');
+
+  req.checkBody("customerid", "Invalid value").notEmpty();
+  var errors = req.validationErrors(true);
+  if (errors) {
+      response = store.getResponse(400);
+      response.error = errors;
+      return res.status(400).send(response);
+  }
+
   var response;
 
   var customer_id = req.body.customerid;
-  var requestid = getRandomArbitrary(1, 10000);
-  var date = new Date();
-  var query_string = "INSERT INTO `request` (`request_id`, `customer_id`, `request_time`) VALUES(" + requestid + ", " + customer_id + ", '"+ date +"')";
+  // var requestid = getRandomArbitrary(1, 10000);
+  var date = new Date().getTime();
+  // var seconds = date.getSeconds();
+  var query_string = "INSERT INTO `request` (`customer_id`, `request_time`) VALUES(" + customer_id + ", '"+ date +"')";
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
