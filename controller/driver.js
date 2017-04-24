@@ -32,18 +32,26 @@ controller.selectride = function (req, res, next) {
   dbConnection.dbConnect(qdriver_flag)
   .then(function(result1){
       if(result1.driver_flag === 1){
-          response = store.getResponse(403);
-          response.error = "Not allowed to take ride";
-          return res.status(403).send(response);
+          // response = store.getResponse(403);
+          // response.error = "Not allowed to take ride";
+          // return res.status(403).send(response);
+          return res.redirect('http://52.26.22.157:3000/driver/', {
+            // msg: "Customer id not valid",
+            // flag: 3
+          });
       }
 
       qcheck_request = "select driver_id from `dashboard` where request_id=" +  requestid;
       dbConnection.dbConnect(qcheck_request)
       .then(function(result2){
           if(result2.driver_id > 0){
-              response = store.getResponse(403);
-              response.error = "Ride has already been taken";
-              return res.status(403).send(response);
+              // response = store.getResponse(403);
+              // response.error = "Ride has already been taken";
+              // return res.status(403).send(response);
+              return res.redirect('http://52.26.22.157:3000/driver/', {
+                // msg: "Customer id not valid",
+                // flag: 3
+              });
           }
           else {
               var current_time = new Date().getTime();
