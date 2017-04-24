@@ -93,7 +93,7 @@ ALTER TABLE `driver`
 -- Indexes for table `request`
 --
 ALTER TABLE `request`
-  ADD PRIMARY KEY (`request_id`,`customer_id`);
+  ADD PRIMARY KEY (`request_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
