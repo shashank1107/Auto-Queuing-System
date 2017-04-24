@@ -18,9 +18,13 @@ controller.ride = function (req, res, next) {
   req.checkBody("customerid", "Invalid value").notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {
-      response = store.getResponse(400);
-      response.error = errors;
-      return res.status(400).send(response);
+      // response = store.getResponse(400);
+      // response.error = errors;
+      // return res.status(400).send(response);
+      return res.redirect('/pages/customerapp', {
+        msg: "Customer id not valid",
+        flag: 2
+      });
   }
 
   var customer_id = req.body.customerid;

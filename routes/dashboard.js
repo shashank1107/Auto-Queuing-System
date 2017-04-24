@@ -12,7 +12,7 @@ router.post('/',
 
 router.get('/', function(req, res){
   var options = {
-       uri: '/api/',
+       uri: 'http://localhost:300/api/',
        method: 'POST',
        qs: {}
    };
