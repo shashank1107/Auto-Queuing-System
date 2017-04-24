@@ -31,7 +31,7 @@ controller.selectride = function (req, res, next) {
   qdriver_flag = "Select driver_flag FROM `driver` WHERE driver_id =" + driverid;
   dbConnection.dbConnect(qdriver_flag)
   .then(function(result1){
-      if(result1.driver_flag === 1){
+      if(result1[0].driver_flag === 1){
           response = store.getResponse(403);
           response.error = "Not allowed to take ride";
           return res.status(403).send(response);
@@ -44,7 +44,7 @@ controller.selectride = function (req, res, next) {
       qcheck_request = "select driver_id from `dashboard` where request_id=" +  requestid;
       dbConnection.dbConnect(qcheck_request)
       .then(function(result2){
-          if(result2.driver_id > 0){
+          if(result2[0].driver_id > 0){
               response = store.getResponse(403);
               response.error = "Ride has already been taken";
               return res.status(403).send(response);
