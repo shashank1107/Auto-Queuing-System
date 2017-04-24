@@ -36,7 +36,7 @@ controller.ride = function (req, res, next) {
       // var response = store.getResponse(200);
       // response.data = result;
       // return res.status(200).json(response);
-      return res.redirect('/pages/customerapp', {
+      return res.render('/pages/customerapp', {
         msg: "Request sent successfully",
         flag: 1
       });
