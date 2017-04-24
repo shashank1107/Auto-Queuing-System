@@ -30,6 +30,7 @@ USE `ola`;
 --
 
 CREATE TABLE `dashboard` (
+  `s_no` int(11) NOT NULL,
   `request_id` int(11) NOT NULL,
   `driver_id` int(11) NOT NULL,
   `request_status` int(11) DEFAULT '0',
