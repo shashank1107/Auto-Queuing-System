@@ -26,7 +26,7 @@ controller.selectride = function (req, res, next) {
   var driverid = req.body.driverid;
   var requestid = req.params.requestid;
 
-  var qdriver_flag, qcheck_request, qupdate_ride;
+  var qdriver_flag, qcheck_request;
 
   qdriver_flag = "Select driver_flag FROM driver WHERE driver_id =" + driverid;
   dbConnection.dbConnect(qdriver_flag)
@@ -47,12 +47,22 @@ controller.selectride = function (req, res, next) {
           }
           else {
               var current_time = new Date().getTime();
-              qupdate_ride = "BEGIN; UPDATE dashboard set request_status = 1, accepted_time = " + current_time  + " where driver_id=" + driverid + "; UPDATE driver set driver_flag = 1 where driver_id= " + driverid + "; COMMIT;";
-              dbConnection.dbConnect(qupdate_ride)
-              .then(function(result2){
-                  var response = store.getResponse(200);
-                  response.data = result2;
-                  return res.status(200).json(response);
+              var qupdate_ride1 = "UPDATE dashboard set request_status = 1, accepted_time = " + current_time  + " where driver_id=" + driverid ;
+              var qupdate_ride2 = "UPDATE driver set driver_flag = 1 where driver_id= " + driverid;
+              dbConnection.dbConnect(qupdate_ride1)
+              .then(function(result3){
+                  dbConnection.dbConnect(qupdate_ride2)
+                  .then(function(result4){
+                      var response = store.getResponse(200);
+                      response.data = result4;
+                      return res.status(200).json(response);
+                  })
+                  .catch(function(error){
+                      console.log('error getting ', error);
+                      response = store.getResponse(500);
+                      response.error = "Server Error";
+                      return res.status(500).send(response);
+                  });
               })
               .catch(function(error){
                   console.log('error getting ', error);
