@@ -23,7 +23,7 @@ controller.ride = function (req, res, next) {
       // return res.status(400).send(response);
       return res.redirect('/pages/customerapp', {
         msg: "Customer id not valid",
-        flag: 2
+        flag: 3
       });
   }
 
