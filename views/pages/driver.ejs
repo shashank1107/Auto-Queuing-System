@@ -30,7 +30,7 @@
                     <% if(result[i].request_status == 0){ %>
                       <div>Request ID: <%= result[i].request_id %></div>
                       <div>Customer ID: <%= result[i].customer_id %></div>
-                      <form method="post" action="http://localhost:3000/api/driver/select/<%= result[i].request_id %>">
+                      <form method="post" action="http://52.26.22.157:3000/api/driver/select/<%= result[i].request_id %>">
                         <input type="hidden" name="driverid" value="<%= result[i].driver_id %>">
                         <button type="submit" class="btn btn-primary">Select</button>
                       </form>

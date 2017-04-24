@@ -54,9 +54,13 @@ controller.selectride = function (req, res, next) {
                   dbConnection.dbConnect(qupdate_ride2)
                   .then(function(result4){
                       console.log('Successfully updated in ride function !!');
-                      var response = store.getResponse(200);
-                      response.data = result4;
-                      return res.status(200).json(response);
+                      // var response = store.getResponse(200);
+                      // response.data = result4;
+                      // return res.status(200).json(response);
+                      return res.redirect('http://52.26.22.157:3000/driver/', {
+                        // msg: "Customer id not valid",
+                        // flag: 3
+                      });
                   })
                   .catch(function(error){
                       console.log('error getting ', error);
