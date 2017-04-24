@@ -17,6 +17,7 @@ controller.allRequests = function (req, res, next) {
   dbConnection.dbConnect(query_string)
   .then(function(result){
       var response = store.getResponse(200);
+      result.elapsed_time = (new Date().getTime()) - result.created_time;
       response.data = result;
       return res.status(200).json(response);
   })
