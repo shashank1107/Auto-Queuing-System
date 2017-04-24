@@ -18,13 +18,13 @@ controller.ride = function (req, res, next) {
   req.checkBody("customerid", "Invalid value").notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {
-      // response = store.getResponse(400);
-      // response.error = errors;
-      // return res.status(400).send(response);
-      return res.redirect('http://52.26.22.157:3000/customer/', {
-        msg: "Customer id not valid",
-        flag: 3
-      });
+      response = store.getResponse(400);
+      response.error = errors;
+      return res.status(400).send(response);
+      // return res.redirect('http://52.26.22.157:3000/customer/', {
+      //   msg: "Customer id not valid",
+      //   flag: 3
+      // });
   }
 
   var customer_id = req.body.customerid;
@@ -33,24 +33,24 @@ controller.ride = function (req, res, next) {
   dbConnection.dbConnect(query_string)
   .then(function(result){
       console.log('getting data successfully in ride function ');
-      // var response = store.getResponse(200);
-      // response.data = result;
-      // return res.status(200).json(response);
-      return res.render('http://52.26.22.157:3000/customer/', {
-        msg: "Request sent successfully",
-        flag: 1
-      });
+      var response = store.getResponse(200);
+      response.data = result;
+      return res.status(200).json(response);
+      // return res.render('http://52.26.22.157:3000/customer/', {
+      //   msg: "Request sent successfully",
+      //   flag: 1
+      // });
   })
   .catch(function(error){
       console.log('error getting ', error);
-      // var response = store.getResponse(500);
-      // response.error = error.response.body;
-      // return res.status(500).send(response);
-      return res.redirect('http://52.26.22.157:3000/customer/', {
-        msg: "Server Error",
-        error: error,
-        flag: 0
-      });
+      var response = store.getResponse(500);
+      response.error = error.response.body;
+      return res.status(500).send(response);
+      // return res.redirect('http://52.26.22.157:3000/customer/', {
+      //   msg: "Server Error",
+      //   error: error,
+      //   flag: 0
+      // });
   });
 };
 
