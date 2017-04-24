@@ -19,10 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `ola`
 --
-
 CREATE DATABASE IF NOT EXISTS `ola` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `ola`;
-
 -- --------------------------------------------------------
 
 --
@@ -68,9 +66,13 @@ INSERT INTO `driver` (`driver_id`, `driver_flag`) VALUES
 CREATE TABLE `request` (
   `request_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
-  `request_time` varchar(30) DEFAULT NULL
+  `request_time` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`request_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `request`
+--
 --
 -- Indexes for dumped tables
 --
@@ -90,12 +92,6 @@ ALTER TABLE `driver`
   ADD PRIMARY KEY (`driver_id`);
 
 --
--- Indexes for table `request`
---
-ALTER TABLE `request`
-  ADD PRIMARY KEY (`request_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -103,7 +99,7 @@ ALTER TABLE `request`
 -- AUTO_INCREMENT for table `dashboard`
 --
 ALTER TABLE `dashboard`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
