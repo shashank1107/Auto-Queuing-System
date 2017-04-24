@@ -54,9 +54,9 @@ CREATE TABLE `driver` (
 
 INSERT INTO `driver` (`driver_id`, `driver_flag`) VALUES
 (1, 0),
-(2, 0),
-(3, 0),
-(4, 0),
+(2, 0);
+(3, 0);
+(4, 0);
 (5, 0);
 
 -- --------------------------------------------------------
@@ -66,18 +66,10 @@ INSERT INTO `driver` (`driver_id`, `driver_flag`) VALUES
 --
 
 CREATE TABLE `request` (
-  `request_id` int(11) NOT NULL,
+  `request_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `request_time` varchar(30) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `request`
---
-
-INSERT INTO `request` (`request_id`, `customer_id`, `request_time`) VALUES
-(1, 1, '123'),
-(2, 1, '125');
 
 --
 -- Indexes for dumped tables

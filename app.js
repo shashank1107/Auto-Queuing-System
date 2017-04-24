@@ -4,7 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 
+var validator = require('./services/validation');
 var customer = require('./routes/customer');
 var driver = require('./routes/driver');
 var dashboard = require('./routes/dashboard');
@@ -22,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressValidator(validator));
 
 app.use('/api/', dashboard);
 app.use('/api/driver', driver);
