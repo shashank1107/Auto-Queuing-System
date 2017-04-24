@@ -47,7 +47,7 @@ controller.selectride = function (req, res, next) {
           }
           else {
               var current_time = new Date().getTime();
-              var qupdate_ride1 = "UPDATE `dashboard` set request_status = 1, driver_id = " + driverid  + " accepted_time = " + current_time  + " where request_id=" + requestid ;
+              var qupdate_ride1 = "UPDATE `dashboard` set request_status = 1, driver_id = " + driverid  + ", accepted_time = " + current_time  + " where request_id=" + requestid ;
               var qupdate_ride2 = "UPDATE `driver` set driver_flag = 1 where driver_id= " + driverid;
               dbConnection.dbConnect(qupdate_ride1)
               .then(function(result3){
