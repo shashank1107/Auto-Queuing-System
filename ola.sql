@@ -41,6 +41,17 @@ CREATE TABLE `driver` (
 ALTER TABLE `driver`
   ADD PRIMARY KEY (`driver_id`);
 
+  --
+  -- Dumping data for table `driver`
+  --
+
+  INSERT INTO `driver` (`driver_id`, `driver_flag`) VALUES
+  (1, 0),
+  (2, 0),
+  (3, 0),
+  (4, 0),
+  (5, 0);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --

@@ -28,6 +28,7 @@ controller.ride = function (req, res, next) {
   var query_string = "INSERT INTO `dashboard` (`customer_id`, `created_time`) VALUES(" + customer_id + ", '"+ created_time +"')";
   dbConnection.dbConnect(query_string)
   .then(function(result){
+      console.log('getting data successfully in ride function ');
       var response = store.getResponse(200);
       response.data = result;
       return res.status(200).json(response);

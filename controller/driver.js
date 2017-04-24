@@ -26,43 +26,33 @@ controller.selectride = function (req, res, next) {
   var driverid = req.body.driverid;
   var requestid = req.params.requestid;
 
-  var query_string = "Select driver_flag FROM driver WHERE driver_id = " + driverid;
-  dbConnection.dbConnect(query_string)
-  .then(function(result){
-      if(result.driver_flag === 1){
+  var qdriver_flag, qcheck_request, qupdate_ride;
+
+  qdriver_flag = "Select driver_flag FROM driver WHERE driver_id =" + driverid;
+  dbConnection.dbConnect(qdriver_flag)
+  .then(function(result1){
+      if(result1.driver_flag === 1){
           response = store.getResponse(403);
           response.error = "Not allowed to take ride";
           return res.status(403).send(response);
       }
 
-      var query_string1 = "SELECT if(COUNT(*)>0,'VALID','NOT_VALID') as Request FROM dashboard WHERE request_id = " +  requestid;
-      dbConnection.dbConnect(query_string1)
-      .then(function(result1){
-          if(result1.Request == "VALID"){
+      qcheck_request = "select driver_id from dashboard where request_id=" +  requestid;
+      dbConnection.dbConnect(qcheck_request)
+      .then(function(result2){
+          if(result2.driver_id > 0){
               response = store.getResponse(403);
               response.error = "Ride has already been taken";
               return res.status(403).send(response);
           }
           else {
-              var date = new Date();
-              var start_time = date.getSeconds();
-              var query_string2 = "INSERT INTO dashboard (request_id, driver_id, request_status,start_time) VALUES("+requestid+", "+ driverid+", 1,"+start_time +")";
-              dbConnection.dbConnect(query_string2)
+              var current_time = new Date().getTime();
+              qupdate_ride = "BEGIN; UPDATE dashboard set request_status = 1, accepted_time = " + current_time  + " where driver_id=" + driverid + "; UPDATE driver set driver_flag = 1 where driver_id= " + driverid + "; COMMIT;";
+              dbConnection.dbConnect(qupdate_ride)
               .then(function(result2){
-                var query_string3 = "UPDATE driver SET driver_flag = 1 WHERE driver_id = '" + driverid + "'";
-                dbConnection.dbConnect(query_string2)
-                  .then(function(result3){
-                      var response = store.getResponse(200);
-                      response.data = result3;
-                      response.message = "Ride taken successfully";
-                      return res.status(200).json(response);
-                  })
-                  .catch(function(error){
-                      console.log('error getting ', error);
-                      response = store.getResponse(500);
-                      response.error = "Server Error";
-                      return res.status(500).send(response);
-                  });
+                  var response = store.getResponse(200);
+                  response.data = result2;
+                  return res.status(200).json(response);
               })
               .catch(function(error){
                   console.log('error getting ', error);
@@ -99,35 +89,13 @@ controller.getList = function (req, res, next) {
       return res.status(400).send(response);
   }
 
-  var driverid = req.body.driverid;
-  var date = new Date();
-  var query_string = "UPDATE dashboard set request_status=2 where request_status=1 and (" + date + " - start_time) > 300  and driver_id =" + driverid;
+  var driver_id = req.body.driverid;
+  var query_string = "SELECT * from dashboard where driver_id =" + driver_id;
   dbConnection.dbConnect(query_string)
   .then(function(result){
-    var date = new Date();
-    var query_string1 = "UPDATE driver set driver_flag = (SELECT if(COUNT(*)>0,0,1) as request_status FROM dashboard WHERE driver_id = "+ driverid +" and request_status=1) Where driver_id="+driverid;
-    dbConnection.dbConnect(query_string1)
-      .then(function(result1){
-          var query_string2 = "SELECT * FROM dashboard INNER JOIN request ON dashboard.request_id = request.request_id WHERE dashboard.driver_id=" + driverid;
-          dbConnection.dbConnect(query_string2)
-            .then(function(result2){
-                  var response = store.getResponse(200);
-                  response.data = result2;
-                  return res.status(200).json(response);
-            })
-            .catch(function(error){
-                console.log('error getting ', error);
-                response = store.getResponse(500);
-                response.error = "Server Error";
-                return res.status(500).send(response);
-            });
-      })
-      .catch(function(error){
-          console.log('error getting ', error);
-          response = store.getResponse(500);
-          response.error = "Server Error";
-          return res.status(500).send(response);
-      });
+      var response = store.getResponse(200);
+      response.data = result;
+      return res.status(200).json(response);
   })
   .catch(function(error){
       console.log('error getting ', error);
