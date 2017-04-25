@@ -30,8 +30,10 @@
                     <% if(result[i].request_status == 0){ %>
                       <div>Request ID: <%= result[i].request_id %></div>
                       <div>Customer ID: <%= result[i].customer_id %></div>
-                      <span id="<%= result[i].request_id %>"></span>
-                      <button type="button" onclick="selectBtnClicked('<%= driver_id %>', '<%= result[i].request_id %>')" class="btn btn-primary">Select</button>
+                      <form method="post" action="http://52.26.22.157:3000/api/driver/select/<%= result[i].request_id %>">
+                        <input type="hidden" name="driverid" value="<%= driver_id %>">
+                        <button type="submit" class="btn btn-primary">Select</button>
+                      </form>
                     <% } %>
                 </td>
                  <td>
@@ -56,38 +58,6 @@
     <footer>
         <% include ../partials/footer %>
     </footer>
-    <script>
-        var selectBtnClicked = function(driverId, reqId){
-            var url = "/api/driver/select?driverid="+driverId;
-            var body = {
-                "requestid" : reqId
-            };
-            postCall(url, body, reqId);
-            return false;
-        };
-        var postCall = function(url, body, reqId) {
-            var http = new XMLHttpRequest();
-            http.onreadystatechange = function () {
-                if (http.readyState == XMLHttpRequest.DONE) {
-                    if (http.status == 200) {
-                        //if want to do something
-                        alert('Driver ride successfully selected.');
-                    }
-                    else if (http.status == 422) {
-                        alert('Driver is not allowed to take ride');
-                    }
-                    else {
-                        alert('something else other than 200 was returned');
-                    }
-                    document.getElementById(reqId).innerHTML = http.responseText;
-                }
-            };
-
-            http.open("POST", url, true);
-            http.setRequestHeader("Content-type", "application/json");
-            http.send(JSON.stringify(body));
-        }
-    </script>
 
 </body>
 </html>
