@@ -31,7 +31,7 @@
                       <div>Request ID: <%= result[i].request_id %></div>
                       <div>Customer ID: <%= result[i].customer_id %></div>
                       <span id="<%= result[i].request_id %>"></span>
-                      <button type="button" onclick="selectBtnClicked('<%= driver_id %>', '<%= result[i].request_id %>')" class="btn btn-primary">Select</button>
+                      <button id="selectbtn" type="button" onclick="selectBtnClicked('<%= driver_id %>', '<%= result[i].request_id %>')" class="btn btn-primary">Select</button>
                     <% } %>
                 </td>
                  <td>
@@ -72,6 +72,7 @@
                     if (http.status == 200) {
                         //if want to do something
                         alert('Driver ride successfully selected.');
+                        document.getElementById("selectbtn").disabled = true;
                     }
                     else if (http.status == 422) {
                         alert('Driver is not allowed to take ride');
