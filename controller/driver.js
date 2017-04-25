@@ -28,11 +28,11 @@ controller.selectride = function (req, res, next) {
 
   var qdriver_flag, qcheck_request;
 
-  qdriver_flag = "Select driver_flag FROM `driver` WHERE driver_id =" + driverid;
+  qdriver_flag = "Select * FROM `driver` WHERE driver_id =" + driverid;
   dbConnection.dbConnect(qdriver_flag)
   .then(function(result1){
-      var dflag = result1[0].driver_flag ? result1[0].driver_flag : 0;
-      if(dflag === 1){
+      console.log('sss ', result1);
+      if(result1[0].driver_flag === 1){
           response = store.getResponse(422);
           response.error = "Not allowed to take ride";
           return res.status(403).send(response);
@@ -42,9 +42,10 @@ controller.selectride = function (req, res, next) {
           // });
       }
 
-      qcheck_request = "select driver_id from `dashboard` where request_id=" +  requestid;
+      qcheck_request = "select * from `dashboard` where request_id=" +  requestid;
       dbConnection.dbConnect(qcheck_request)
       .then(function(result2){
+          console.log('fff ', result2);
           if(result2[0].driver_id > 0){
               response = store.getResponse(422);
               response.error = "Ride has already been taken";
