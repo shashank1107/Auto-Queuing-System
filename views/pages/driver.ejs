@@ -58,9 +58,9 @@
     </footer>
     <script>
         var selectBtnClicked = function(driverId, reqId){
-            var url = "/api/driver/select?driverid="+driverId;
+            var url = "/api/driver/select/requestid="+reqId;
             var body = {
-                "requestid" : reqId
+                "driverid" : driverId
             };
             postCall(url, body, reqId);
             return false;

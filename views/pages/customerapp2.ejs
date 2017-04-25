@@ -1,0 +1,47 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include ../partials/header %>
+    </header>
+
+    <main>
+        <div class="jumbotron">
+            <h3>Customer App</h3>
+            <form method="post" action="http://52.26.22.157:3000/api/customer/">
+              <div class="form-group">
+                <label for="customerid">Customer ID:</label>
+                <input type="text" class="form-control" id="customerid" name="customerid" placeholder="Enter Customer ID">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+        <% if(flag==3){ %>
+        <div class="jumbotron">
+            <p><%= msg %></p>
+        </div>
+        <% } %>
+        <% if(flag==1){ %>
+        <div class="jumbotron">
+            <p><%= msg %></p>
+        </div>
+        <% } %>
+        <% if(flag==0){ %>
+        <div class="jumbotron">
+            <p><%= msg %></p>
+        </div>
+        <% } %>
+    </main>
+
+    <footer>
+        <% include ../partials/footer %>
+    </footer>
+
+</body>
+</html>
