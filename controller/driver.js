@@ -31,7 +31,8 @@ controller.selectride = function (req, res, next) {
   qdriver_flag = "Select driver_flag FROM `driver` WHERE driver_id =" + driverid;
   dbConnection.dbConnect(qdriver_flag)
   .then(function(result1){
-      if(result1[0].driver_flag === 1){
+      var dflag = result1[0].driver_flag ? result1[0].driver_flag : 0;
+      if(dflag === 1){
           response = store.getResponse(422);
           response.error = "Not allowed to take ride";
           return res.status(403).send(response);
