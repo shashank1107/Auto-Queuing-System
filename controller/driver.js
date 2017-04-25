@@ -27,7 +27,7 @@ controller.selectride = function (req, res, next) {
   var requestid = req.params.requestid;
 
   var qdriver_flag, qcheck_request;
-
+  console.log('driverid ', driverid);
   qdriver_flag = "Select * FROM `driver` WHERE driver_id =" + driverid;
   dbConnection.dbConnect(qdriver_flag)
   .then(function(result1){
