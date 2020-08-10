@@ -1,4 +1,4 @@
-# Auto Queuing System for on-demand service providers
+# Auto Queuing System for on-demand cab service provider
 
 
 Database Logic: There are three tables that are created-
