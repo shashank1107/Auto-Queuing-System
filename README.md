@@ -1,7 +1,5 @@
-# olaapp
+# Auto Queuing System for on demand service providers
 
-Backend codebase : https://github.com/shashank1107/olaapp 
-Backend server : http://52.26.22.157:3000/  
 
 Database Logic: There are three tables that are created-
 dashboard( request_id, driver_id, request_status, start_time)
@@ -32,14 +30,3 @@ POST /api/
 customer - POST /api/customer/
 Body parameters : customerid.  
 Use case : Allows customer to select ride and inserted in request table.
-
-  
-
-Challenges faced while completing exercise:
-
-A lot time went into setting up aws instance. As I used my account few months back, all settings were obsolete. So had to set up another instance.
-
-There was open port issue. I tried to configure it using nginx but it was centOS so there were some other config changes. Finally, open HTTP-TCP port for all IPs.
-
-I have used mysql long time back. So, when i tried to run it on my new machine, there were some dependencies because of which I could run it locally. So, I pushed the code and checked it on aws server.
-
